@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DamuLab — Әлеуметтік кәсіпкерлік және инклюзивті білім беру платформасы</title>
+    <style>
+        :root {
+            --bg-color: #FDFBF7;
+            --card-bg: #FFFFFF;
+            --primary: #2B6CB0;
+            --primary-hover: #2C5282;
+            --accent-green: #38A169;
+            --accent-green-hover: #2F855A;
+            --accent-yellow: #D69E2E;
+            --accent-yellow-hover: #B7791F;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --border-color: #E2E8F0;
+            --danger: #E53E3E;
+            --danger-hover: #C53030;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-green);
+            font-size: 0.85rem;
+            background: #E6FFFA;
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid #B2F5EA;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background-color: #EBF8FF;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-success {
+            background-color: var(--accent-green);
+        }
+        .btn-success:hover {
+            background-color: var(--accent-green-hover);
+        }
+
+        .btn-warning {
+            background-color: var(--accent-yellow);
+            color: #fff;
+        }
+        .btn-warning:hover {
+            background-color: var(--accent-yellow-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            background-color: #EDF2F7;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #EBF8FF 0%, #FAF089 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #2C3E50;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #4A5568;
+            max-width: 700px;
+        }
+        .social-badge-banner {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--accent-green);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            width: fit-content;
+            gap: 8px;
+        }
+
+        /* Filters & Search */
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-input, .filter-select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            background: white;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .product-img-container {
+            width: 100%;
+            height: 180px;
+            background: #EDF2F7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .social-benefit-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(56, 161, 105, 0.9);
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .product-body {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex: 1;
+        }
+
+        .product-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .discounted-price {
+            display: flex;
+            flex-direction: column;
+        }
+        .old-price {
+            font-size: 0.8rem;
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        .new-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        /* Modal / Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* Cart & Forms */
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            background: #F7FAFC;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Profile Tabs */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 2rem;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-sidebar {
+            background: #F7FAFC;
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .profile-tab-btn {
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 12px 1.5rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .profile-tab-btn:hover, .profile-tab-btn.active {
+            background: #EBF8FF;
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .profile-content {
+            padding: 2rem;
+        }
+
+        .profile-pane {
+            display: none;
+        }
+
+        .profile-pane.active {
+            display: block;
+        }
+
+        /* Subscriptions cards */
+        .sub-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .sub-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .sub-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(43, 108, 176, 0.15);
+        }
+
+        .sub-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Iframe Modal for Games */
+        .game-modal-content {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        .game-frame-container {
+            flex: 1;
+            width: 100%;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+            position: relative;
+        }
+        .game-frame-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Social Banner notice */
+        .social-privilege-notice {
+            background: #E6FFFA;
+            border: 1px solid #B2F5EA;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #234E52;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer {
+            background: #2D3748;
+            color: #CBD5E0;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            }
+            nav.open {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            .profile-sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 1rem;
+            }
+            .profile-tab-btn {
+                border-left: none;
+                border-bottom: 4px solid transparent;
+                white-space: nowrap;
+            }
+            .profile-tab-btn.active {
+                border-bottom-color: var(--primary);
+                border-left-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" onclick="switchView('home'); return false;">
+                DamuLab <span>Әлеуметтік кәсіпкерлік</span>
+            </a>
+            <nav id="mainNav">
+                <button class="nav-link active" onclick="switchView('home')">Басты бет</button>
+                <button class="nav-link" onclick="switchView('products')">Өнімдер</button>
+                <button class="nav-link" onclick="switchView('custom-order')">Авторлық тапсырыс</button>
+                <button class="nav-link" onclick="switchView('games')">Онлайн ойындар</button>
+                <button class="nav-link" onclick="switchView('stories')">Ертегілер мен материалдар</button>
+                <button class="nav-link" onclick="switchView('subscription')">Жазылым</button>
+                <button class="nav-link" onclick="switchView('organizations')">Ұйымдарға</button>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="openCartModal()" style="position: relative;">
+                    🛒 Себет <span id="cartCountBadge" style="background:var(--danger); color:white; border-radius:50%; padding:1px 6px; font-size:0.7rem; position:absolute; top:-6px; right:-6px; display:none;">0</span>
+                </button>
+                <button class="btn" onclick="openProfileModal()">👤 Жеке кабинет</button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. БАСТЫ БЕТ -->
+        <section id="view-home" class="view-section active">
+            <div class="hero">
+                <div class="social-badge-banner">
+                    ✨ Әлеуметтік бағытталған білім беру және инклюзия платформасы
+                </div>
+                <h1>Мүмкіндігі шектеулі жандарға қолдау және инновациялық оқу құралдары</h1>
+                <p>«DamuLab» — 3D басып шығару арқылы жасалған ерекше дамыту құралдары, тактильді ойыншықтар, авторлық ертегілер мен цифрлық онлайн ойындар ұсынатын әлеуметтік кәсіпкерлік жобасы. Бізде мүмкіндігі шектеулі жандарды растайтын құжаты бар азаматтарға және аз қамтылған отбасыларға **50% жеңілдік пен тегін жазылымдар** қарастырылған.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-success" onclick="switchView('products')">Өнімдерді қарау</button>
+                    <button class="btn btn-warning" onclick="switchView('subscription')">Әлеуметтік жеңілдік алу</button>
+                </div>
+            </div>
+
+            <h2 style="margin-bottom: 1.5rem; color: #2C3E50;">Негізгі бағыттарымыз</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: white; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">🧱 3D Тактильді Құралдар</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Балалардың ұсақ моторикасын, сезу қабілетін дамытатын және ерекше білім беруді қажет ететін жандарға арналған 3D принтер өнімдері.</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+                    <h3 style="color: var(--accent-green); margin-bottom: 10px;">📚 Интерактивті Кітапхана</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Авторлық ертегілер, дамытушы боямақтар және қазақ тіліндегі цифрлық тапсырмалар жинағы.</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+                    <h3 style="color: var(--accent-yellow); margin-bottom: 10px;">🤝 Әлеуметтік Қолдау</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Мүмкіндігі шектеулі жандарды жұмыспен қамту және осал топтарға тегін немесе жеңілдетілген бағамен контент ұсыну.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ӨНІМДЕР КАТАЛОГЫ -->
+        <section id="view-products" class="view-section">
+            <div class="social-privilege-notice">
+                ℹ️ <strong>Әлеуметтік жеңілдік:</strong> Егер сізде мүмкіндігі шектеулі екендігін растайтын құжатыңыз болса немесе аз қамтылған отбасы санатына жатсаңыз, барлық өнімдер мен жазылымдарға **50% жеңілдік** беріледі (Жеке кабинетте немесе себетте белгілеу арқылы).
+            </div>
+
+            <div class="filters-bar">
+                <input type="text" id="productSearch" class="search-input" placeholder="Өнім атауы бойынша іздеу..." oninput="filterProducts()">
+                <select id="categoryFilter" class="filter-select" onchange="filterProducts()">
+                    <option value="all">Барлық санаттар</option>
+                    <option value="3D">3D құралдар</option>
+                    <option value="tactile">Тактильді және моторика</option>
+                    <option value="model">Пәндік модельдер</option>
+                </select>
+                <select id="ageFilter" class="filter-select" onchange="filterProducts()">
+                    <option value="all">Барлық жас санаты</option>
+                    <option value="3-5">3–5 жас</option>
+                    <option value="6-9">6–9 жас</option>
+                    <option value="10+">10+ жас</option>
+                </select>
+                <select id="sortFilter" class="filter-select" onchange="filterProducts()">
+                    <option value="default">Сұрыптау</option>
+                    <option value="asc">Бағасы: арзаннан бастап</option>
+                    <option value="desc">Бағасы: қымбаттан бастап</option>
+                </select>
+            </div>
+
+            <div id="productsGrid" class="products-grid">
+                <!-- Javascript арқылы толықтырылады -->
+            </div>
+        </section>
+
+        <!-- 3. АВТОРЛЫҚ ТАПСЫРЫС -->
+        <section id="view-custom-order" class="view-section">
+            <div style="background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border-color); max-width: 800px; margin: 0 auto;">
+                <h2 style="margin-bottom: 1rem; color: var(--primary);">Жеке 3D оқу құралын немесе құрал жасату</h2>
+                <p style="color: var::text-muted; margin-bottom: 1.5rem; font-size: 0.95rem;">Бланк арқылы өзіңізге немесе орталығыңызға қажетті жеке өлшемдегі, түстегі және бедердегі тактильді немесе оқу құралына тапсырыс беріңіз.</p>
+                
+                <form id="customOrderForm" onsubmit="saveCustomOrder(event)">
+                    <div class="form-group">
+                        <label>Құралдың мақсаты (не үшін жасалады?)*</label>
+                        <input type="text" id="coPurpose" class="form-control" required placeholder="Мысалы: Әріп үйренуге арналған бедерлі тақта">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Жас санаты*</label>
+                            <select id="coAge" class="form-control" required>
+                                <option value="3-5 жас">3–5 жас</option>
+                                <option value="6-9 жас">6–9 жас</option>
+                                <option value="10+ жас">10+ жас</option>
+                                <option value="Ерекше білім беру">Ерекше білім беру қажеттіліктері</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Өлшемі*</label>
+                            <input type="text" id="coSize" class="form-control" required placeholder="Мысалы: 20x30 см">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Түсі</label>
+                            <input type="text" id="coColor" class="form-control" placeholder="Мысалы: Ашық көк, сары">
+                        </div>
+                        <div class="form-group">
+                            <label>Бедер түрі (тактильділік)</label>
+                            <input type="text" id="coTexture" class="form-control" placeholder="Мысалы: Орташа дөңес, брейль элементтерімен">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Құралға жазылатын мәтін немесе ескерту</label>
+                        <input type="text" id="coText" class="form-control" placeholder="Мысалы: Қазақ әліпбиінің әріптері">
+                    </div>
+                    <div class="form-group">
+                        <label>Қосымша түсініктеме / талаптар</label>
+                        <textarea id="coDesc" class="form-control" rows="3" placeholder="Толық сипаттама..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Эскиз немесе сурет тіркеу (файл)</label>
+                        <input type="file" id="coFile" class="form-control" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-success" style="width: 100%;">Өтінімді сақтау және жіберу</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 4. ОНЛАЙН ОЙЫНДАР -->
+        <section id="view-games" class="view-section">
+            <div class="social-privilege-notice">
+                🎮 Жоба жазылымы арқылы төмендегі барлық авторлық интерактивті онлайн ойындар мен жаттығулар толық ашылады. (Мүмкіндігі шектеулі немесе аз қамтылған азаматтар жазылымды тегін немесе 50% жеңілдікпен ала алады).
+            </div>
+            <div id="gamesGrid" class="games-grid">
+                <!-- Скрипт арқылы толтырылады -->
+            </div>
+        </section>
+
+        <!-- 5. ЕРТЕГІЛЕР ЖӘНЕ МАТЕРИАЛДАР -->
+        <section id="view-stories" class="view-section">
+            <div class="social-privilege-notice">
+                📖 Қазақ тіліндегі авторлық ертегілер, боямақтар және басып шығарылатын тактильді/логикалық тапсырмалар жинағы. Жазылымы бар немесе жеңілдігі бар қолданушылар үшін толық қолжетімді.
+            </div>
+            <div id="materialsGrid" class="products-grid">
+                <!-- Материалдар карточкалары -->
+            </div>
+        </section>
+
+        <!-- 6. ЖАЗЫЛЫМ -->
+        <section id="view-subscription" class="view-section">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto 2rem auto;">
+                <h2 style="color: #2C3E50; margin-bottom: 10px;">Платформа жазылымдары</h2>
+                <p style="color: var(--text-muted);">Барлық онлайн ойындарды, ертегілерді және жүктелетін материалдарды шектеусіз қолданыңыз. Мүмкіндігі шектеулі екенін растайтын құжаты бар жандарға — **ТЕГІН**, ал көпбалалы ата-аналарға — **50% ЖЕҢІЛДІК** беріледі!</p>
+            </div>
+
+            <div class="checkbox-group" style="max-width: 600px; margin: 0 auto 2rem auto; background: #fff;">
+                <input type="checkbox" id="globalSocialDiscountCheck" onchange="toggleGlobalSocialDiscount(this)">
+                <label for="globalSocialDiscountCheck" style="margin-bottom:0; cursor:pointer;">
+                    <strong>Әлеуметтік жеңілдікті қолдану</strong> (Мүмкіндігі шектеулі құжаты бар немесе аз қамтылған / көпбалалы отбасы ретінде растау)
+                </label>
+            </div>
+
+            <div class="sub-cards-grid" id="subscriptionCardsContainer">
+                <!-- Динамикалық түрде жасалады -->
+            </div>
+        </section>
+
+        <!-- 7. ҰЙЫМДАРҒА -->
+        <section id="view-organizations" class="view-section">
+            <div style="background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border-color); max-width: 800px; margin: 0 auto;">
+                <h2 style="margin-bottom: 1rem; color: var(--primary);">Мектептер, балабақшалар мен дамыту орталықтарына арналған серіктестік</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Біздің инклюзивті құралдар мен цифрлық платформамызды өз мекемеңізге енгізіңіз. Арнайы топтар мен сыныптарға көлемді тапсырыстар мен әдістемелік қолдау көрсетеміз.</p>
+                
+                <form id="orgForm" onsubmit="saveOrgRequest(event)">
+                    <div class="form-group">
+                        <label>Ұйымның атауы (мектеп, балабақша, орталық)*</label>
+                        <input type="text" id="orgName" class="form-control" required placeholder="Мысалы: №12 инклюзивті балабақша">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Байланыс тұлғасы (Аты-жөні)*</label>
+                            <input type="text" id="orgPerson" class="form-control" required placeholder="Толық аты-жөні">
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон нөмірі*</label>
+                            <input type="tel" id="orgPhone" class="form-control" required placeholder="+7 (7xx) xxx-xx-xx">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Қызметкерлер / тәрбиеленушілер саны</label>
+                            <input type="number" id="orgCount" class="form-control" placeholder="Мысалы: 50">
+                        </div>
+                        <div class="form-group">
+                            <label>Қажетті бағыт</label>
+                            <select id="orgType" class="form-control">
+                                <option value="3D құралдар жинағы">3D құралдар жинағы</option>
+                                <option value="Платформа жазылымы">Платформа жазылымы</option>
+                                <option value="Толық әдістемелік кешен">Толық әдістемелік кешен</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Сұраныс немесе қосымша тілектер</label>
+                        <textarea id="orgDesc" class="form-control" rows="3" placeholder="Қажеттіліктеріңізді жазыңыз..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="width: 100%;">Ұйым атынан өтінім жіберу</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- МОДАЛДЫҚ ТЕРЕЗЕЛЕР -->
+
+    <!-- Себет модалы -->
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeCartModal()">&times;</button>
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Себет және Тапсырыс</h2>
+            
+            <div id="cartContentContainer">
+                <!-- Себет кестесі -->
+            </div>
+
+            <div id="checkoutFormContainer" style="display: none; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Тапсырысты рәсімдеу</h3>
+                <form id="checkoutForm" onsubmit="submitCheckout(event)">
+                    <div class="form-group">
+                        <label>Аты-жөні*</label>
+                        <input type="text" id="chkName" class="form-control" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Телефон*</label>
+                            <input type="tel" id="chkPhone" class="form-control" required placeholder="+7...">
+                        </div>
+                        <div class="form-group">
+                            <label>Қала / Өңір*</label>
+                            <input type="text" id="chkCity" class="form-control" required placeholder="Орал, Ақтөбе, т.б.">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Жеткізу тәсілі</label>
+                        <select id="chkDelivery" class="form-control">
+                            <option value="Қазпочта арқылы жеткізу">Қазпочта арқылы жеткізу</option>
+                            <option value="Курьерлік жеткізу">Курьерлік жеткізу</option>
+                            <option value="Орталықтан алып кету (Тегін)">Орталықтан алып кету (Тегін)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Мекенжайыңыз*</label>
+                        <input type="text" id="chkAddress" class="form-control" required placeholder="Көше, үй, пәтер">
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="chkSocialDoc" onchange="recalcCart()">
+                        <label for="chkSocialDoc" style="margin-bottom:0; cursor:pointer; font-size:0.85rem;">
+                            Мүмкіндігі шектеулі екендігін растайтын құжатым бар / Аз қамтылған отбасымын (50% жеңілдік)
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 1rem;">Тапсырысты растау және сақтау</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Жеке Кабинет модалы -->
+    <div id="profileModal" class="modal-overlay">
+        <div class="modal-container" style="max-width: 900px; padding: 0; overflow: hidden;">
+            <button class="modal-close" onclick="closeProfileModal()" style="z-index: 10; top: 1rem; right: 1rem;">&times;</button>
+            <div class="profile-container">
+                <div class="profile-sidebar">
+                    <button class="profile-tab-btn active" onclick="switchProfileTab('profile')">👤 Профиль</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('orders')">📦 Тапсырыстарым</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('custom-orders')">🛠️ Авторлық өтінімдерім</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('subscription-status')">⭐ Жазылымым</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('favorites')">❤️ Таңдаулылар</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('materials')">📚 Материалдарым</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('downloads')">📥 Жүктеу тарихы</button>
+                    <button class="profile-tab-btn" onclick="switchProfileTab('org-requests')">🏢 Ұйым өтінімдері</button>
+                </div>
+                <div class="profile-content">
+                    <!-- Профиль қойындысы -->
+                    <div id="pane-profile" class="profile-pane active">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Жеке профиль деректері</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Бұл деректер тек осы браузерде (localStorage) қауіпсіз сақталады.</p>
+                        <form id="userProfileForm" onsubmit="saveUserProfile(event)">
+                            <div class="form-group">
+                                <label>Аты-жөні</label>
+                                <input type="text" id="upName" class="form-control" required placeholder="Толық аты-жөні">
+                            </div>
+                            <div class="form-group">
+                                <label>Электрондық пошта</label>
+                                <input type="email" id="upEmail" class="form-control" required placeholder="email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Телефон нөмірі</label>
+                                <input type="tel" id="upPhone" class="form-control" placeholder="+7...">
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="upHasDisabilityCert">
+                                <label for="upHasDisabilityCert" style="margin-bottom:0; cursor:pointer;">
+                                    Мүмкіндігі шектеулі екендігін растайтын құжатым бар / Көпбалалы немесе аз қамтылған отбасымын (50% немесе 100% жеңілдік құқығы)
+                                </label>
+                            </div>
+                            <button type="submit" class="btn" style="margin-top: 1rem;">Өзгерістерді сақтау</button>
+                        </form>
+                    </div>
+
+                    <!-- Тапсырыстарым -->
+                    <div id="pane-orders" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Менің тапсырыстарым</h3>
+                        <div id="myOrdersList">Әзірге тапсырыстар жоқ.</div>
+                    </div>
+
+                    <!-- Авторлық өтінімдерім -->
+                    <div id="pane-custom-orders" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Авторлық 3D өтінімдерім</h3>
+                        <div id="myCustomOrdersList">Әзірге өтінімдер жоқ.</div>
+                    </div>
+
+                    <!-- Жазылымым -->
+                    <div id="pane-subscription-status" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Жазылым мәртебесі</h3>
+                        <div id="mySubscriptionDetails">Жазылым тексерілуде...</div>
+                    </div>
+
+                    <!-- Таңдаулылар -->
+                    <div id="pane-favorites" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Таңдаулы өнімдер мен материалдар</h3>
+                        <div id="myFavoritesList">Таңдаулылар тізімі бос.</div>
+                    </div>
+
+                    <!-- Материалдарым -->
+                    <div id="pane-materials" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Жазылыммен ашылған кітапхана</h3>
+                        <div id="myUnlockedMaterials"></div>
+                    </div>
+
+                    <!-- Жүктеу тарихы -->
+                    <div id="pane-downloads" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Жүктелген файлдар тізімі</h3>
+                        <div id="myDownloadsList">Жүктеулер тізімі бос.</div>
+                    </div>
+
+                    <!-- Ұйым өтінімдері -->
+                    <div id="pane-org-requests" class="profile-pane">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Ұйым атынан берілген өтінімдер</h3>
+                        <div id="myOrgRequestsList">Өтінімдер жоқ.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Өнім туралы толық мәлімет модалы -->
+    <div id="productDetailModal" class="modal-overlay">
+        <div class="modal-container" id="productDetailContainer">
+            <!-- Деректер динамикалық салынады -->
+        </div>
+    </div>
+
+    <!-- Ойын iframe модалы -->
+    <div id="gameModal" class="modal-overlay">
+        <div class="modal-container game-modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="gameModalTitle" style="color: var(--primary);">Ойын атауы</h3>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-outline" id="gameNewWindowBtn" onclick="openGameInNewWindow()">Жаңа терезеде ашу ↗</button>
+                    <button class="btn btn-danger" onclick="closeGameModal()">Жабу &times;</button>
+                </div>
+            </div>
+            <div class="game-frame-container">
+                <iframe id="gameIframe" src=""></iframe>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">* Сыртқы ойынның жұмыс істеуі үшін интернет байланысы қажет.</p>
+        </div>
+    </div>
+
+    <!-- Ертегі оқу модалы -->
+    <div id="storyModal" class="modal-overlay">
+        <div class="modal-container" id="storyModalContainer">
+            <!-- Ертегі мәтіні -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 «DamuLab» Әлеуметтік кәсіпкерлік жобасы. Барлық құқықтар қорғалған.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px; color: #A0AEC0;">Инклюзивті білім беру, 3D оқу құралдары және цифрлық қолдау платформасы.</p>
+    </footer>
+
+    <script>
+        // --- ДЕРЕКТЕР БАЗАСЫ ЖӘНЕ STATE ---
+        const productsData = [
+            { id: 1, name: "Бедерлі қазақ әріптері мен сандар", category: "3D", age: "3-5", size: "15x15 см", material: "Эко-пластик (PLA)", price: 4500, desc: "Балалардың сипап сезу арқылы әріптер мен сандарды оңай меңгеруіне арналған 3D жинақ.", img: "Тактильный казахский алфавит и цифры.png" },
+            { id: 2, name: "Әріп құрастыру тақтасы", category: "tactile", age: "6-9", size: "30x20 см", material: "Ағаш + 3D бөлшектер", price: 5800, desc: "Сөздер мен буындарды құрастыруға арналған тактильді оқу тақтасы.", img: "Обучающая доска с объёмными буквами.png" },
+            { id: 3, name: "Пішін сұрыптауыш", category: "3D", age: "3-5", size: "20x20 см", material: "Гипоаллергенді пластик", price: 3900, desc: "Логикалық ойлау мен түс тануға арналған геометриялық пішіндер жинағы.", img: "Пастельный куб-сортер с фигурками.png" },
+            { id: 4, name: "Тактильді лабиринт", category: "tactile", age: "3-5", size: "25x25 см", material: "PLA пластик", price: 4200, desc: "Саусақ моторикасын және бағдарлау қабілетін дамытатын лабиринт.", img: "Тактильный бирюзовый лабиринт.png" },
+            { id: 5, name: "Санау тақтасы", category: "3D", age: "6-9", size: "30x10 см", material: "Эко-пластик", price: 3500, desc: "Қарапайым математикалық есептер мен санауды үйрететін құрал.", img: "Яркая деревянная доска для счёта.png" },
+            { id: 6, name: "Бөлшектерден сурет құрастыру жинағы", category: "tactile", age: "6-9", size: "үнсіз өлшем", material: "Пластик", price: 6200, desc: "Кеңістіктік ойлау мен шығармашылықты дамытатын мозаика.", img: "Мозаичный конструктор с птицей и узорами.png" },
+            { id: 7, name: "Күн тәртібі тақтасы", category: "tactile", age: "3-5", size: "40x30 см", material: "Пластик + магнит", price: 7500, desc: "Баланың күнделікті әрекеттерін ретке келтіруге және ұйымшылдыққа үйретеді.", img: "Доска детского распорядка с пиктограммами.png" },
+            { id: 8, name: "Тактильді ертегі кітаптары", category: "3D", age: "3-5", size: "А4 формат", material: "Текстуралы қағаз + 3D фигуралар", price: 8900, desc: "Оқып жатқанда кейіпкерлерді ұстап сезінуге болатын ерекше кітап.", img: "Тактильная книга-сказка с 3D-элементами.png" },
+            { id: 9, name: "3D ертегі кейіпкерлері", category: "3D", age: "6-9", size: "10 см биіктік", material: "PLA пластик", price: 4800, desc: "Ертегі сахналау мен театрландырылған ойындарға арналған фигуралар.", img: "Шесть казахских сказочных фигурок.png" },
+            { id: 10, name: "Тактильді карталар", category: "model", age: "10+", size: "A3 формат", material: "Рельефті пластик", price: 9500, desc: "География мен өңірлерді бедерлі түрде зерттеуге арналған карта.", img: "Тактильная рельефная карта мира.png" },
+            { id: 11, name: "Қалам ұстағыштар", category: "tactile", age: "3-5", size: "Стандарт", material: "Гипоаллергенді силикон", price: 1800, desc: "Қаламды дұрыс ұстауға және қол бұлшықеттерін дұрыс қалыптастыруға көмектеседі.", img: "Пастельные эргономичные держатели для карандашей (1).png" },
+            { id: 12, name: "Бау өткізу және ұсақ моторика тақталары", category: "tactile", age: "3-5", size: "20x15 см", material: "Ағаш + Пластик", price: 3400, desc: "Аяқ киім бауын байлау және түйме түймелеу дағдыларын дамытады.", img: "Развивающий набор_ шнуровка и пуговицы.png" },
+            { id: 13, name: "Сенсорлық панельдер", category: "3D", age: "3-5", size: "30x30 см", material: "Түрлі текстуралы пластик", price: 6700, desc: "Сенсорлық қабылдау мен жүйке жүйесін тынықтыруға арналған панель.", img: "Разноцветная сенсорная панель с текстурами.png" },
+            { id: 14, name: "Логикалық жинақтар", category: "model", age: "10+", size: "Жиынтық", material: "Эко-пластик", price: 7900, desc: "Күрделі логикалық есептер мен жұмбақтарды шешуге арналған жинақ.", img: "Набор 3D-пазлов для пространственного мышления.png" },
+            { id: 15, name: "Пәндік 3D модельдер", category: "model", age: "10+", size: "Әр түрлі", material: "PLA plastik", price: 5500, desc: "Биология, химия және физика пәндеріне арналған көрнекі 3D модельдер.", img: "Коллекция ярких учебных 3D-моделей (1).png" }
+        ];
+
+        const gamesData = [
+            { id: 1, title: "Математикалық саяхат", desc: "Қызықты есептер мен сан табу ойыны.", url: "https://mapscripte.github.io/muslimgamee/" },
+            { id: 2, title: "Есте сақтау квесті", desc: "Ойлау қабілетін дамытатын тапсырмалар.", url: "https://vibe-coding.diaoft.kz/pages/page_69d632fd106a9.html" },
+            { id: 3, title: "Түстер мен пішіндер әлемі", desc: "Түстерді және пішіндерді ажырату және сәйкестендіру.", url: "https://vibe-coding.diaoft.kz/pages/page_69d63547a4499.html" },
+            { id: 4, title: "Сөздік мерген", desc: "Қазақ тіліндегі сөздерді дұрыс құрастыру.", url: "https://vibecoding.89-207-250-84.sslip.io/pages/page_6ac37113d3ef3.html" },
+            { id: 5, title: "Жылдам моторика", desc: "Реакция мен зердені дамыту.", url: "https://vibe-coding.diaoft.kz/pages/page_69d635e0ab16e.html" },
+            { id: 6, title: "Жаратылыстану сырлары", desc: "Қоршаған орта туралы танымдық ойын.", url: "https://vibecoding.89-207-250-84.sslip.io/pages/page_6ac37f4e135d9.html" },
+            { id: 7, title: "Ғарыштық саяхат", desc: "Кеңістіктік бағдарлау ойыны.", url: "https://vibecoding.89-207-250-84.sslip.io/pages/page_6ac370f021880.html" },
+            { id: 8, title: "Сиқырлы әліппе", desc: "Әріптер әлеміне қызықты саяхат.", url: "https://vibecoding.89-207-250-84.sslip.io/pages/page_6ac37e9d9251e.html" },
+            { id: 9, title: "Экологиялық квест", desc: "Табиғатты қорғау және тазалық ойыны.", url: "https://vibecoding.89-207-250-84.sslip.io/pages/page_6ac37e6a4b38c.html" },
+            { id: 10, title: "Дәстүрлер және тарихтар", desc: "Дәстүрлер мен құндылықтар ойыны.", url: "https://vibecoding.89-207-250-84.sslip.io/pages/page_6ac38058e978b.html" }
+        ];
+
+        const materialsData = [
+            { id: 'm1', title: "Алтын балық ертегісі", type: "Ертегі", desc: "Қысқаша мәтіні бар аудио және оқу материалы.", content: "Ертеде теңіз жағасында кедей шал мен кемпір өмір сүріпті. Бір күні шалдың ауына алтын балық түседі.— Мені босатсаң, тілегіңді орындаймын, — дейді балық. Мейірімді шал ештеңе сұрамай, оны теңізге жібереді. Мұны естіген кемпір ашуланып, шалдан жаңа астау сұратқызады. Балық тілегін орындайды. Бірақ кемпір оған қанағаттанбайды. Әуелі жаңа үй, кейін байлық пен патшайым болуды қалайды. Алтын балық оның тілектерін орындай береді. Ақырында кемпір теңізге билік жүргізіп, алтын балықтың өзін қызметші еткісі келеді. Шал бұл тілекті жеткізгенде, балық үндеместен теңізге сүңгіп кетеді. Шал үйіне оралса, бұрынғы ескі лашығының алдында кемпірі сынған астаудың жанында отыр екен. Ертегі қолда барды бағалап, қанағатшыл болуға үйретеді." },
+            { id: 'm2', title: "Қарлығаш пен дәуір (Аңыз)", type: "Ертегі", desc: "Батылдық пен достық туралы әсерлі ертегі.", content: "Ертеде бір қарлығаш үйдің шатырына ұя салып, балапан басып шығарыпты. Ол күн сайын балапандарына жем тасып, оларды қамқорлығына бөлепті. Бір күні қарлығаш жем іздеп ұшып кеткенде, ұяға қарай жылан өрмелей бастапты. Балапандар қорыққанынан шырылдап қоя беріпті. Осы кезде оралған қарлығаш жыланды көріп, қатты абыржыпты. Балапандарын құтқарғысы келгенімен, жалғыз өзінің шамасы жетпейтінін түсініпті. Қарлығаш көмек іздеп ұшыпты. Жолда кездескен құстардан жәрдем сұрапты, бірақ ешқайсысы жыланмен айқасуға батылы бармапты. Сонда оның алдынан кішкентай дәуіт шығыпты. — Қарлығаш, неге сонша алаңдап жүрсің? — деп сұрапты ол. — Ұяма жылан жақындап қалды. Балапандарыма қауіп төніп тұр! — деп жауап беріпті қарлығаш. — Мені ұяңа жеткіз. Қолымнан келгенше көмектесейін, — депті дәуіт. Қарлығаш дәуітті арқасына отырғызып, ұясына қарай асығыпты. Жылан балапандарға ұмтыла бергенде, дәуіт оның басына секіріп түсіп, өткір алдыңғы аяқтарымен көзіне жармасыпты. Жылан басын шайқап, дәуіттен құтылмақ болыпты. Ақыры ұядан алыстап, төменге түсіп кетіпті. Балапандарының аман қалғанын көрген қарлығаш қуаныпты. — Дәуіт, сен кішкентай болсаң да, жүрегің батыл екен! Балапандарымды құтқардың. Саған рақмет! — депті ол. — Досқа қиын кезде көмектесу керек, — деп жауап беріпті дәуіт. Содан бері қарлығаш пен дәуіт дос болыпты. Аңыздың негізгі ойы: шынайы достық қиын сәтте танылады. Батылдық дененің үлкендігіне емес, жүректің мықтылығына байланысты." },
+            { id: 'm3', title: "Күзгі жапырақтар боямағы", type: "Боямақ", desc: "Ұсақ моторика мен қол бұлшықетін дамытуға арналған боямақ үлгісі.",url: "Осенние листья_ раскраска для детей.png", isDownloadable: true },
+            { id: 'm4', title: "Геометриялық пішіндерді табу тапсырмасы", type: "Тапсырма", desc: "Логикалық ойлауға арналған басып шығарылатын жұмыс парағы.", isDownloadable: true }
+        ];
+
+        const subscriptionPlans = [
+            { id: 'sub-fam', name: 'Отбасылық жазылым', price: 2900, period: '1 ай', desc: 'Үй жағдайындағы балаларға арналған барлық ойындар мен материалдар.' },
+            { id: 'sub-cent', name: 'Дамыту орталығы', price: 7900, period: '1 ай', desc: 'Шағын топтар мен орталықтарға арналған кеңейтілген рұқсат.', featured: true },
+            { id: 'sub-sch', name: 'Мектеп / Бақша пакеті', price: 15900, period: '1 жыл', desc: 'Бүкіл мекемеге арналған толық жылдық шексіз пакет.' }
+        ];
+
+        // LocalStorage деректерін инициализациялау
+        let cart = JSON.parse(localStorage.getItem('damulab_cart')) || [];
+        let orders = JSON.parse(localStorage.getItem('damulab_orders')) || [];
+        let customOrders = JSON.parse(localStorage.getItem('damulab_custom_orders')) || [];
+        let orgRequests = JSON.parse(localStorage.getItem('damulab_org_requests')) || [];
+        let favorites = JSON.parse(localStorage.getItem('damulab_favorites')) || [];
+        let downloads = JSON.parse(localStorage.getItem('damulab_downloads')) || [];
+        let userProfile = JSON.parse(localStorage.getItem('damulab_profile')) || { name: '', email: '', phone: '', hasDisabilityCert: false };
+        let activeSubscription = JSON.parse(localStorage.getItem('damulab_subscription')) || { active: false, planName: '', startDate: '', endDate: '', isFreeOrDiscounted: false };
+
+        // Бастапқы жүктелу
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts(productsData);
+            renderGames();
+            renderMaterials();
+            renderSubscriptionCards();
+            updateCartBadge();
+            checkSubscriptionStatusOnLoad();
+            loadProfileToForm();
+        });
+
+        // Навигация
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('view-' + viewId).classList.add('active');
+            event && event.target && event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mainNav').classList.toggle('open');
+        }
+
+        // --- ӨНІМДЕР ЖӘНЕ КАТАЛОГ ---
+        function renderProducts(list) {
+            const grid = document.getElementById('productsGrid');
+            const hasGlobalDisc = userProfile.hasDisabilityCert || document.getElementById('globalSocialDiscountCheck')?.checked;
+
+            grid.innerHTML = list.map(p => {
+                const finalPrice = hasGlobalDisc ? Math.round(p.price * 0.5) : p.price;
+                return `
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <span class="social-benefit-tag">Әлеуметтік баға</span>
+                            <img src="${p.img}" alt="${p.name}">
+                        </div>
+                        <div class="product-body">
+                            <h4 class="product-title">${p.name}</h4>
+                            <p class="product-desc">${p.desc}</p>
+                            <div class="product-meta">
+                                <span>Жасы: ${p.age} жас</span>
+                                <span>Өлшемі: ${p.size}</span>
+                            </div>
+                            <div class="product-footer">
+                                <div>
+                                    ${hasGlobalDisc ? `
+                                        <div class="discounted-price">
+                                            <span class="old-price">${p.price} ₸</span>
+                                            <span class="new-price">${finalPrice} ₸ (-50%)</span>
+                                        </div>
+                                    ` : `<span class="product-price">${p.price} ₸</span>`}
+                                </div>
+                                <div style="display:flex; gap:6px;">
+                                    <button class="btn btn-outline" onclick="openProductDetail(${p.id})" style="padding:6px 10px; font-size:0.8rem;">Толығырақ</button>
+                                    <button class="btn" onclick="addToCart(${p.id})" style="padding:6px 10px; font-size:0.8rem;">Себетке</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('productSearch').value.toLowerCase();
+            const cat = document.getElementById('categoryFilter').value;
+            const age = document.getElementById('ageFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            let filtered = productsData.filter(p => {
+                const matchQuery = p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query);
+                const matchCat = cat === 'all' || p.category === cat;
+                const matchAge = age === 'all' || p.age === age;
+                return matchQuery && matchCat && matchAge;
+            });
+
+            if (sort === 'asc') filtered.sort((a,b) => a.price - b.price);
+            if (sort === 'desc') filtered.sort((a,b) => b.price - a.price);
+
+            renderProducts(filtered);
+        }
+
+        function openProductDetail(id) {
+            const p = productsData.find(item => item.id === id);
+            if(!p) return;
+            const hasGlobalDisc = userProfile.hasDisabilityCert;
+            const finalPrice = hasGlobalDisc ? Math.round(p.price * 0.5) : p.price;
+
+            const container = document.getElementById('productDetailContainer');
+            container.innerHTML = `
+                <button class="modal-close" onclick="closeProductDetailModal()">&times;</button>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <img src="${p.img}" alt="${p.name}" style="width:100%; height:250px; object-fit:cover; border-radius:8px;">
+                    <h2 style="color:var(--primary);">${p.name}</h2>
+                    <p>${p.desc}</p>
+                    <div style="background:#F7FAFC; padding:12px; border-radius:8px; font-size:0.9rem;">
+                        <p><strong>Санаты:</strong> ${p.category}</p>
+                        <p><strong>Жас санаты:</strong> ${p.age}</p>
+                        <p><strong>Өлшемі:</strong> ${p.size}</p>
+                        <p><strong>Материалы:</strong> ${p.material}</p>
+                    </div>
+                    <div>
+                        <span style="font-size:1.2rem; font-weight:bold; color:var(--primary);">Бағасы: ${finalPrice} ₸</span>
+                        ${hasGlobalDisc ? '<span style="color:var(--accent-green); font-size:0.85rem; margin-left:10px;">(Мүмкіндігі шектеулі құжат бойынша 50% жеңілдік қолданылды)</span>' : ''}
+                    </div>
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <button class="btn" onclick="addToCart(${p.id}); closeProductDetailModal();">Себетке қосу</button>
+                        <button class="btn btn-outline" onclick="toggleFavorite(${p.id})">❤️ Таңдаулыға қосу</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('productDetailModal').classList.add('open');
+        }
+
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.remove('open');
+        }
+
+        // --- СЕБЕТ ЖӘНЕ ТАПСЫРЫС ---
+        function addToCart(id) {
+            const item = productsData.find(p => p.id === id);
+            const existing = cart.find(i => i.id === id);
+            const hasDisc = userProfile.hasDisabilityCert;
+            const price = hasDisc ? Math.round(item.price * 0.5) : item.price;
+
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...item, price, qty: 1 });
+            }
+            saveCart();
+            updateCartBadge();
+            alert('Өнім себетке қосылды!');
+        }
+
+        function saveCart() {
+            localStorage.setItem('damulab_cart', JSON.stringify(cart));
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartCountBadge');
+            const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+            if (totalQty > 0) {
+                badge.style.display = 'inline-block';
+                badge.innerText = totalQty;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function openCartModal() {
+            renderCartContent();
+            document.getElementById('cartModal').classList.add('open');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.remove('open');
+        }
+
+        function renderCartContent() {
+            const container = document.getElementById('cartContentContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">Себет бос.</p>`;
+                document.getElementById('checkoutFormContainer').style.display = 'none';
+                return;
+            }
+
+            const isSocial = document.getElementById('chkSocialDoc')?.checked || userProfile.hasDisabilityCert;
+            let total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+            container.innerHTML = `
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Өнім</th>
+                            <th>Бағасы</th>
+                            <th>Саны</th>
+                            <th>Жиыны</th>
+                            <th>Әрекет</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cart.map((item, index) => `
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.price} ₸</td>
+                                <td>
+                                    <button onclick="changeQty(${index}, -1)" class="btn btn-outline" style="padding:2px 6px;">-</button>
+                                    <span style="margin:0 6px;">${item.qty}</span>
+                                    <button onclick="changeQty(${index}, 1)" class="btn btn-outline" style="padding:2px 6px;">+</button>
+                                </td>
+                                <td>${item.price * item.qty} ₸</td>
+                                <td><button onclick="removeFromCart(${index})" class="btn btn-danger" style="padding:4px 8px; font-size:0.8rem;">Өшіру</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <div style="text-align:right; font-size:1.2rem; font-weight:bold; margin-bottom:1rem;">
+                    Жалпы сома: <span style="color:var(--primary);">${total} ₸</span>
+                </div>
+                <button class="btn btn-success" onclick="document.getElementById('checkoutFormContainer').style.display='block'; this.style.display='none';" style="width:100%;">Тапсырысты рәсімдеуге өту</button>
+            `;
+        }
+
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            saveCart();
+            updateCartBadge();
+            renderCartContent();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartBadge();
+            renderCartContent();
+        }
+
+        function submitCheckout(e) {
+            e.preventDefault();
+            const name = document.getElementById('chkName').value;
+            const phone = document.getElementById('chkPhone').value;
+            const city = document.getElementById('chkCity').value;
+            const delivery = document.getElementById('chkDelivery').value;
+            const address = document.getElementById('chkAddress').value;
+
+            const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            const orderNum = 'DL-' + Math.floor(100000 + Math.random() * 900000);
+
+            const newOrder = {
+                id: orderNum,
+                date: new Date().toLocaleDateString('kk-KZ'),
+                items: [...cart],
+                total,
+                name, phone, city, delivery, address,
+                status: 'Қабылданды (Браузерде сақталды)'
+            };
+
+            orders.push(newOrder);
+            localStorage.setItem('damulab_orders', JSON.stringify(orders));
+
+            cart = [];
+            saveCart();
+            updateCartBadge();
+            closeCartModal();
+
+            alert(`Тапсырыс сәтті қабылданды! Тапсырыс нөмірі: ${orderNum}\nЕскерту: Бұл дерек осы браузердегі жеке кабинетіңізде сақталды.`);
+        }
+
+        // --- АВТОРЛЫҚ ТАПСЫРЫС ---
+        function saveCustomOrder(e) {
+            e.preventDefault();
+            const purpose = document.getElementById('coPurpose').value;
+            const age = document.getElementById('coAge').value;
+            const size = document.getElementById('coSize').value;
+            const color = document.getElementById('coColor').value;
+            const texture = document.getElementById('coTexture').value;
+            const text = document.getElementById('coText').value;
+            const desc = document.getElementById('coDesc').value;
+
+            const newCustom = {
+                id: 'CO-' + Math.floor(1000 + Math.random() * 9000),
+                date: new Date().toLocaleDateString('kk-KZ'),
+                purpose, age, size, color, texture, text, desc,
+                status: 'Қаралуда'
+            };
+
+            customOrders.push(newCustom);
+            localStorage.setItem('damulab_custom_orders', JSON.stringify(customOrders));
+            alert('Авторлық өтініміңіз сәтті сақталды! Оны Жеке кабинет арқылы көре аласыз.');
+            document.getElementById('customOrderForm').reset();
+        }
+
+        // --- ЖАЗЫЛЫМ ЖӘНЕ ЖЕҢІЛДІКТЕР ---
+        function toggleGlobalSocialDiscount(checkbox) {
+            userProfile.hasDisabilityCert = checkbox.checked;
+            localStorage.setItem('damulab_profile', JSON.stringify(userProfile));
+            renderProducts(productsData);
+            renderSubscriptionCards();
+        }
+
+        function renderSubscriptionCards() {
+            const container = document.getElementById('subscriptionCardsContainer');
+            const hasDisc = userProfile.hasDisabilityCert || document.getElementById('globalSocialDiscountCheck')?.checked;
+
+            container.innerHTML = subscriptionPlans.map(plan => {
+                let finalPrice = plan.price;
+                let badgeText = '';
+                if (hasDisc) {
+                    finalPrice = 0;
+                    badgeText = 'Мүмкіндігі шектеулі құжат бойынша: ТЕГІН';
+                }
+                return `
+                    <div class="sub-card ${plan.featured ? 'featured' : ''}">
+                        ${plan.featured ? '<div class="sub-badge">Танымал</div>' : ''}
+                        <h3>${plan.name}</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted); flex:1;">${plan.desc}</p>
+                        ${hasDisc ? `
+                            <div>
+                                <span class="old-price">${plan.price} ₸</span>
+                                <span class="new-price">0 ₸ (Тегін)</span>
+                            </div>
+                            <p style="font-size:0.75rem; color:var(--accent-green); font-weight:600;">${badgeText}</p>
+                        ` : `<div style="font-size:1.3rem; font-weight:bold; color:var(--primary);">${plan.price} ₸ / ${plan.period}</div>`}
+                        <button class="btn btn-success" onclick="activateSubscription('${plan.name}', ${finalPrice})">Жазылымды қосу</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function activateSubscription(planName, price) {
+            const now = new Date();
+            const endDate = new Date();
+            endDate.setMonth(now.getMonth() + 1);
+
+            activeSubscription = {
+                active: true,
+                planName: planName,
+                startDate: now.toLocaleDateString('kk-KZ'),
+                endDate: endDate.toLocaleDateString('kk-KZ'),
+                isFreeOrDiscounted: price === 0
+            };
+
+            localStorage.setItem('damulab_subscription', JSON.stringify(activeSubscription));
+            alert(`«${planName}» жазылымы сәтті қосылды! Барлық ойындар мен материалдар ашылды.`);
+            renderMaterials();
+        }
+
+        function checkSubscriptionStatusOnLoad() {
+            if (activeSubscription.active) {
+                const parts = activeSubscription.endDate.split('.');
+                const endDt = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                if (new Date() > endDt) {
+                    activeSubscription.active = false;
+                    localStorage.setItem('damulab_subscription', JSON.stringify(activeSubscription));
+                }
+            }
+        }
+
+        // --- ОЙЫНДАР ЖӘНЕ IFRAME ---
+        function renderGames() {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = gamesData.map(g => `
+                <div class="game-card">
+                    <h4 style="color:var(--primary);">${g.title}</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted); flex:1;">${g.desc}</p>
+                    <button class="btn" onclick="openGameModal('${g.title}', '${g.url}')">Ойнау</button>
+                </div>
+            `).join('');
+        }
+
+        let currentGameUrl = '';
+        function openGameModal(title, url) {
+            if (!activeSubscription.active) {
+                alert('Бұл бөлімді ашу үшін белсенді жазылым қажет! Жазылым бөліміне өтіңіз.');
+                switchView('subscription');
+                return;
+            }
+            currentGameUrl = url;
+            document.getElementById('gameModalTitle').innerText = title;
+            document.getElementById('gameIframe').src = url;
+            document.getElementById('gameModal').classList.add('open');
+        }
+
+        function closeGameModal() {
+            document.getElementById('gameModal').classList.remove('open');
+            document.getElementById('gameIframe').src = '';
+        }
+
+        function openGameInNewWindow() {
+            if(currentGameUrl) {
+                window.open(currentGameUrl, '_blank');
+            }
+        }
+
+        // --- ЕРТЕГІЛЕР ЖӘНЕ МАТЕРИАЛДАР ---
+        function renderMaterials() {
+            const grid = document.getElementById('materialsGrid');
+            grid.innerHTML = materialsData.map(m => `
+                <div class="product-card">
+                    <div class="product-body">
+                        <span style="font-size:0.75rem; background:#EBF8FF; color:var(--primary); padding:2px 8px; border-radius:4px; width:fit-content; font-weight:600;">${m.type}</span>
+                        <h4 class="product-title" style="margin-top:5px;">${m.title}</h4>
+                        <p class="product-desc">${m.desc}</p>
+                        <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;">
+                            ${m.type === 'Ертегі' ? `
+                                <button class="btn" onclick="openStoryModal('${m.title}', '${m.content}')" style="font-size:0.8rem; padding:6px 10px;">Оқу</button>
+                                <button class="btn btn-outline" onclick="speakStory('${m.content}')" style="font-size:0.8rem; padding:6px 10px;">🔊 Тыңдау</button>
+                            ` : `
+                                <button class="btn btn-success" onclick="downloadMaterial('${m.title}')" style="font-size:0.8rem; padding:6px 10px;">📥 Жүктеу</button>
+                                <button class="btn btn-outline" onclick="printMaterial('${m.title}')" style="font-size:0.8rem; padding:6px 10px;">🖨️️ Баспа көрінісі</button>
+                            `}
+                            <button class="btn btn-outline" onclick="toggleFavoriteMaterial('${m.title}')" style="font-size:0.8rem; padding:6px 10px;">❤️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openStoryModal(title, content) {
+            if (!activeSubscription.active) {
+                alert('Ертегілер мен материалдарды толық оқу үшін белсенді жазылым қажет!');
+                switchView('subscription');
+                return;
+            }
+            const container = document.getElementById('storyModalContainer');
+            container.innerHTML = `
+                <button class="modal-close" onclick="closeStoryModal()">&times;</button>
+                <h2 style="color:var(--primary); margin-bottom:1rem;">${title}</h2>
+                <p style="font-size:1.05rem; line-height:1.8; margin-bottom:1.5rem;">${content}</p>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn" onclick="speakStory('${content}')">🔊 Дауыстап оқу</button>
+                    <button class="btn btn-danger" onclick="stopSpeech()">Тоқтату</button>
+                </div>
+            `;
+            document.getElementById('storyModal').classList.add('open');
+        }
+
+        function closeStoryModal() {
+            stopSpeech();
+            document.getElementById('storyModal').classList.remove('open');
+        }
+
+        function speakStory(text) {
+            if (!('speechSynthesis' in window)) {
+                alert('Браузеріңізде дауыстап оқу қызметі қолдау таппайды.');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'kk-KZ';
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function stopSpeech() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        function downloadMaterial(title) {
+            if (!activeSubscription.active) {
+                alert('Материалдарды жүктеу үшін белсенді жазылым қажет!');
+                switchView('subscription');
+                return;
+            }
+            downloads.push({ title, date: new Date().toLocaleDateString('kk-KZ') });
+            localStorage.setItem('damulab_downloads', JSON.stringify(downloads));
+            alert(`«${title}» материалы сәтті жүктелді! Жүктеу тарихына қосылды.`);
+        }
+
+        function printMaterial(title) {
+            const win = window.open('', '', 'height=500,width=800');
+            win.document.write(`<html><head><title>${title}</title></head><body style="font-family:sans-serif; padding:2rem;"><h2>${title}</h2><p>DamuLab платформасының баспа материалы.</p><hr><p>Бұл материал баланың дамуы мен тапсырма орындауына арналған.</p></body></html>`);
+            win.document.close();
+            win.print();
+        }
+
+        function toggleFavoriteMaterial(title) {
+            if (!favorites.includes(title)) {
+                favorites.push(title);
+                localStorage.setItem('damulab_favorites', JSON.stringify(favorites));
+                alert('Таңдаулыларға қосылды!');
+            } else {
+                alert('Бұл материал бұрын қосылған.');
+            }
+        }
+
+        function toggleFavorite(id) {
+            const p = productsData.find(item => item.id === id);
+            if(p && !favorites.includes(p.name)) {
+                favorites.push(p.name);
+                localStorage.setItem('damulab_favorites', JSON.stringify(favorites));
+                alert('Өнім таңдаулыларға қосылды!');
+            }
+        }
+
+        // --- ҰЙЫМДАРҒА АРНАЛҒАН ӨТІНІМ ---
+        function saveOrgRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('orgName').value;
+            const person = document.getElementById('orgPerson').value;
+            const phone = document.getElementById('orgPhone').value;
+            const count = document.getElementById('orgCount').value;
+            const type = document.getElementById('orgType').value;
+            const desc = document.getElementById('orgDesc').value;
+
+            const req = { id: 'ORG-' + Math.floor(1000 + Math.random()*9000), name, person, phone, count, type, desc, date: new Date().toLocaleDateString('kk-KZ') };
+            orgRequests.push(req);
+            localStorage.setItem('damulab_org_requests', JSON.stringify(orgRequests));
+            alert('Ұйым атынан берілген өтінім сәтті сақталды!');
+            document.getElementById('orgForm').reset();
+        }
+
+        // --- ЖЕКЕ КАБИНЕТ ---
+        function openProfileModal() {
+            renderProfileData();
+            document.getElementById('profileModal').classList.add('open');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.remove('open');
+        }
+
+        function switchProfileTab(tabName) {
+            document.querySelectorAll('.profile-pane').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.profile-tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById('pane-' + tabName).classList.add('active');
+            event && event.target && event.target.classList.add('active');
+        }
+
+        function loadProfileToForm() {
+            document.getElementById('upName').value = userProfile.name || '';
+            document.getElementById('upEmail').value = userProfile.email || '';
+            document.getElementById('upPhone').value = userProfile.phone || '';
+            document.getElementById('upHasDisabilityCert').checked = userProfile.hasDisabilityCert || false;
+        }
+
+        function saveUserProfile(e) {
+            e.preventDefault();
+            userProfile.name = document.getElementById('upName').value;
+            userProfile.email = document.getElementById('upEmail').value;
+            userProfile.phone = document.getElementById('upPhone').value;
+            userProfile.hasDisabilityCert = document.getElementById('upHasDisabilityCert').checked;
+
+            localStorage.setItem('damulab_profile', JSON.stringify(userProfile));
+            renderProducts(productsData);
+            renderSubscriptionCards();
+            alert('Профиль деректері сәтті сақталды!');
+        }
+
+        function renderProfileData() {
+            loadProfileToForm();
+
+            // Тапсырыстар
+            const ordersDiv = document.getElementById('myOrdersList');
+            if (orders.length === 0) {
+                ordersDiv.innerHTML = '<p style="color:var(--text-muted);">Сақталған тапсырыстар жоқ.</p>';
+            } else {
+                ordersDiv.innerHTML = orders.map(o => `
+                    <div style="background:#F7FAFC; padding:12px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border-color);">
+                        <p><strong>Тапсырыс №:</strong> ${o.id} (${o.date})</p>
+                        <p><strong>Сомасы:</strong> ${o.total} ₸ | <strong>Жеткізу:</strong> ${o.delivery}</p>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">Мекенжай: ${o.address}, ${o.city}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Авторлық өтінімдер
+            const customDiv = document.getElementById('myCustomOrdersList');
+            if (customOrders.length === 0) {
+                customDiv.innerHTML = '<p style="color:var(--text-muted);">Авторлық өтінімдер жоқ.</p>';
+            } else {
+                customDiv.innerHTML = customOrders.map(co => `
+                    <div style="background:#F7FAFC; padding:12px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border-color);">
+                        <p><strong>Өтінім №:</strong> ${co.id} (${co.date})</p>
+                        <p><strong>Мақсаты:</strong> ${co.purpose}</p>
+                        <p><strong>Жасы / Өлшемі:</strong> ${co.age}, ${co.size}</p>
+                        <p style="font-size:0.85rem; color:var(--accent-green);">Мәртебесі: ${co.status}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Жазылым
+            const subDiv = document.getElementById('mySubscriptionDetails');
+            if (activeSubscription.active) {
+                subDiv.innerHTML = `
+                    <div style="background:#E6FFFA; border:1px solid #B2F5EA; padding:15px; border-radius:8px;">
+                        <p style="color:var(--accent-green); font-weight:bold; font-size:1.1rem;">Мәртебесі: Белсенді ⭐</p>
+                        <p><strong>Жоспар:</strong> ${activeSubscription.planName}</p>
+                        <p><strong>Басталу күні:</strong> ${activeSubscription.startDate}</p>
+                        <p><strong>Аяқталу күні:</strong> ${activeSubscription.endDate}</p>
+                    </div>
+                `;
+            } else {
+                subDiv.innerHTML = `
+                    <div style="background:#FFF5F5; border:1px solid #FEB2B2; padding:15px; border-radius:8px;">
+                        <p style="color:var(--danger); font-weight:bold;">Жазылым белсенді емес.</p>
+                        <button class="btn btn-warning" onclick="closeProfileModal(); switchView('subscription');" style="margin-top:10px;">Жазылымды қосу</button>
+                    </div>
+                `;
+            }
+
+            // Таңдаулылар
+            const favDiv = document.getElementById('myFavoritesList');
+            if (favorites.length === 0) {
+                favDiv.innerHTML = '<p style="color:var(--text-muted);">Таңдаулылар тісімі бос.</p>';
+            } else {
+                favDiv.innerHTML = favorites.map(f => `<div style="padding:8px; border-bottom:1px solid var(--border-color);">❤️ ${f}</div>`).join('');
+            }
+
+            // Материалдарым
+            const matDiv = document.getElementById('myUnlockedMaterials');
+            if (activeSubscription.active) {
+                matDiv.innerHTML = `<p style="color:var(--accent-green);">Барлық онлайн ойындар, ертегілер мен боямақтар толық ашық және қолжетімді!</p>`;
+            } else {
+                matDiv.innerHTML = `<p style="color:var(--text-muted);">Материалдарды толық көру үшін белсенді жазылым қажет.</p>`;
+            }
+
+            // Жүктеу тарихы
+            const downDiv = document.getElementById('myDownloadsList');
+            if (downloads.length === 0) {
+                downDiv.innerHTML = '<p style="color:var(--text-muted);">Жүктелген файлдар жоқ.</p>';
+            } else {
+                downDiv.innerHTML = downloads.map(d => `<div style="padding:6px 0; border-bottom:1px solid var(--border-color);">📥 ${d.title} (${d.date})</div>`).join('');
+            }
+
+            // Ұйым өтінімдері
+            const orgDiv = document.getElementById('myOrgRequestsList');
+            if (orgRequests.length === 0) {
+                orgDiv.innerHTML = '<p style="color:var(--text-muted);">Ұйым өтінімдері жоқ.</p>';
+            } else {
+                orgDiv.innerHTML = orgRequests.map(o => `
+                    <div style="background:#F7FAFC; padding:12px; border-radius:8px; margin-bottom:10px;">
+                        <p><strong>Ұйым:</strong> ${o.name} (${o.date})</p>
+                        <p><strong>Бағыты:</strong> ${o.type} | <strong>Тұлға:</strong> ${o.person} (${o.phone})</p>
+                    </div>
+                `).join('');
+            }
+        }
+    </script>
+</body>
+</html>
